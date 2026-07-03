@@ -1,0 +1,4 @@
+Model,Accuracy,Precision,Recall,F1,ROC-AUC,Explainability Method,Explainability Quality (1-5),Regulatory Suitability,Computational Cost,Maintenance Complexity
+Logistic Regression,0.857,0.571,0.426,0.488,0.721,Native coefficients,5,High - fully transparent,Very low,Low
+Random Forest,0.806,0.375,0.319,0.345,0.731,SHAP TreeExplainer,4,"Medium - post-hoc, exact",Low-Medium,Medium
+Neural Network,0.857,0.571,0.426,0.488,0.739,SHAP KernelExplainer,2,"Low - post-hoc, approximate",High,High
