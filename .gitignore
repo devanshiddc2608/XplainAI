@@ -1,8 +1,6 @@
+# Remove model/data lines from .gitignore, keep only:
 xplain/
 .env
 __pycache__/
 *.pyc
 .ipynb_checkpoints/
-models/*.pkl
-models/*.keras
-data/*.csv
