@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="page-header">
+    <h1 class="page-title">Model Selection Advisor</h1>
+    <p class="page-subtitle">
+        Describe your organisation and priorities. The AI advisor will recommend
+        which model to deploy, with regulatory rationale.
+    </p>
+</div>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <div class="row g-4">
+            <div class="col-md-6">
+                <label class="form-label fw-semibold">Organisation Type</label>
+                <select class="form-select form-select-lg" id="org-type">
+                    <option value="Regulated Bank">Regulated Bank</option>
+                    <option value="Insurance Company">Insurance Company</option>
+                    <option value="NBFC">NBFC (Non-Banking Financial Company)</option>
+                    <option value="Large Corporate HR Department" selected>Large Corporate HR Department</option>
+                    <option value="Tech Startup">Tech Startup</option>
+                    <option value="Government or Public Sector">Government / Public Sector</option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label fw-semibold">Primary Priority</label>
+                <div class="mt-2">
+                    {% for opt in ['Maximum Accuracy', 'Full Regulatory Compliance', 'Balanced Approach'] %}
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="radio" name="priority"
+                               id="p{{ loop.index }}" value="{{ opt }}"
+                               {% if opt == 'Balanced Approach' %}checked{% endif %}>
+                        <label class="form-check-label" for="p{{ loop.index }}">{{ opt }}</label>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <button type="button" id="recommend-btn" class="btn btn-primary btn-lg mt-4 px-4">
+            <i class="bi bi-lightbulb me-2"></i>Get Recommendation
+        </button>
+    </div>
+</div>
+
+<!-- Loading -->
+<div id="loading-section" class="text-center py-4" style="display:none;">
+    <div class="spinner-border text-primary mb-2"></div>
+    <p class="text-muted">Generating AI-powered recommendation...</p>
+</div>
+
+<!-- Result -->
+<div id="result-section" style="display:none;">
+    <div class="card mb-4" style="border-left:4px solid #3b82f6;">
+        <div class="card-body">
+            <h5 class="section-title">
+                <i class="bi bi-robot me-2"></i>Recommendation
+            </h5>
+            <div id="recommendation-text" class="explanation-card"></div>
+        </div>
+    </div>
+</div>
+
+<div id="error-section" class="alert alert-danger" style="display:none;"></div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.getElementById('recommend-btn').addEventListener('click', async function() {
+    const orgType  = document.getElementById('org-type').value;
+    const priority = document.querySelector('input[name="priority"]:checked').value;
+
+    document.getElementById('result-section').style.display = 'none';
+    document.getElementById('error-section').style.display = 'none';
+    document.getElementById('loading-section').style.display = 'block';
+
+    const formData = new FormData();
+    formData.append('org_type', orgType);
+    formData.append('priority', priority);
+
+    try {
+        const response = await fetch('/recommend', {method: 'POST', body: formData});
+        const data = await response.json();
+
+        document.getElementById('loading-section').style.display = 'none';
+
+        if (!data.success) {
+            document.getElementById('error-section').textContent = 'Error: ' + data.error;
+            document.getElementById('error-section').style.display = 'block';
+            return;
+        }
+
+        document.getElementById('recommendation-text').textContent = data.recommendation;
+        document.getElementById('result-section').style.display = 'block';
+
+    } catch(err) {
+        document.getElementById('loading-section').style.display = 'none';
+        document.getElementById('error-section').textContent = 'Request failed: ' + err.message;
+        document.getElementById('error-section').style.display = 'block';
+    }
+});
+</script>
+{% endblock %}

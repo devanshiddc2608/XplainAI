@@ -1,0 +1,332 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="page-header">
+    <h1 class="page-title">Employee Attrition Risk Analyser</h1>
+    <p class="page-subtitle">
+        Enter employee details below. The selected model will score their attrition risk
+        and explain which factors drove the prediction.
+    </p>
+</div>
+
+<!-- Model Selector -->
+<div class="card mb-4">
+    <div class="card-body">
+        <label class="form-label fw-semibold">Select Model</label>
+        <div class="d-flex gap-3">
+            {% for m in ['Logistic Regression', 'Random Forest', 'Neural Network'] %}
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="model_selector"
+                       id="model_{{ loop.index }}" value="{{ m }}"
+                       {% if m == 'Random Forest' %}checked{% endif %}>
+                <label class="form-check-label" for="model_{{ loop.index }}">{{ m }}</label>
+            </div>
+            {% endfor %}
+        </div>
+        <small class="text-muted">
+            Note: Neural Network analysis takes ~60 seconds due to SHAP computation.
+        </small>
+    </div>
+</div>
+
+<!-- Employee Input Form -->
+<div class="card mb-4">
+    <div class="card-body">
+        <h5 class="section-title">Employee Profile</h5>
+        <form id="analyser-form">
+
+            <!-- Row 1: Demographics -->
+            <div class="row g-3 mb-3">
+                <div class="col-md-2">
+                    <label class="form-label">Age</label>
+                    <input type="number" class="form-control" name="age" value="35" min="18" max="65">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Gender</label>
+                    <select class="form-select" name="gender">
+                        {% for v in categories['Gender'] %}
+                        <option value="{{ v }}" {% if v == 'Male' %}selected{% endif %}>{{ v }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Marital Status</label>
+                    <select class="form-select" name="marital_status">
+                        {% for v in categories['MaritalStatus'] %}
+                        <option value="{{ v }}" {% if v == 'Married' %}selected{% endif %}>{{ v }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Distance From Home (km)</label>
+                    <input type="number" class="form-control" name="distance_from_home" value="5" min="1" max="29">
+                </div>
+            </div>
+
+            <!-- Row 2: Job Info -->
+            <div class="row g-3 mb-3">
+                <div class="col-md-4">
+                    <label class="form-label">Department</label>
+                    <select class="form-select" name="department">
+                        {% for v in categories['Department'] %}
+                        <option value="{{ v }}" {% if v == 'Research & Development' %}selected{% endif %}>{{ v }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Job Role</label>
+                    <select class="form-select" name="job_role">
+                        {% for v in categories['JobRole'] %}
+                        <option value="{{ v }}" {% if v == 'Research Scientist' %}selected{% endif %}>{{ v }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">Job Level (1-5)</label>
+                    <input type="number" class="form-control" name="job_level" value="2" min="1" max="5">
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">OverTime</label>
+                    <select class="form-select" name="overtime">
+                        {% for v in categories['OverTime'] %}
+                        <option value="{{ v }}" {% if v == 'No' %}selected{% endif %}>{{ v }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <!-- Row 3: Satisfaction Scores -->
+            <div class="row g-3 mb-3">
+                <div class="col-md-3">
+                    <label class="form-label">Job Satisfaction (1-4)</label>
+                    <input type="number" class="form-control" name="job_satisfaction" value="3" min="1" max="4">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Environment Satisfaction (1-4)</label>
+                    <input type="number" class="form-control" name="environment_satisfaction" value="3" min="1" max="4">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Work-Life Balance (1-4)</label>
+                    <input type="number" class="form-control" name="work_life_balance" value="3" min="1" max="4">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Job Involvement (1-4)</label>
+                    <input type="number" class="form-control" name="job_involvement" value="3" min="1" max="4">
+                </div>
+            </div>
+
+            <!-- Row 4: Compensation -->
+            <div class="row g-3 mb-3">
+                <div class="col-md-3">
+                    <label class="form-label">Monthly Income ($)</label>
+                    <input type="number" class="form-control" name="monthly_income" value="5000" min="1000" max="20000">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Stock Option Level (0-3)</label>
+                    <input type="number" class="form-control" name="stock_option_level" value="1" min="0" max="3">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">% Salary Hike</label>
+                    <input type="number" class="form-control" name="percent_salary_hike" value="13" min="11" max="25">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Performance Rating (1-4)</label>
+                    <input type="number" class="form-control" name="performance_rating" value="3" min="1" max="4">
+                </div>
+            </div>
+
+            <!-- Row 5: Experience -->
+            <div class="row g-3 mb-3">
+                <div class="col-md-3">
+                    <label class="form-label">Total Working Years</label>
+                    <input type="number" class="form-control" name="total_working_years" value="8" min="0" max="40">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Years at Company</label>
+                    <input type="number" class="form-control" name="years_at_company" value="5" min="0" max="40">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Years in Current Role</label>
+                    <input type="number" class="form-control" name="years_in_current_role" value="3" min="0" max="18">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Years with Manager</label>
+                    <input type="number" class="form-control" name="years_with_curr_manager" value="3" min="0" max="17">
+                </div>
+            </div>
+
+            <!-- Row 6: Remaining fields -->
+            <div class="row g-3 mb-3">
+                <div class="col-md-3">
+                    <label class="form-label">Num Companies Worked</label>
+                    <input type="number" class="form-control" name="num_companies_worked" value="2" min="0" max="9">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Years Since Promotion</label>
+                    <input type="number" class="form-control" name="years_since_last_promotion" value="1" min="0" max="15">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Training Times Last Year</label>
+                    <input type="number" class="form-control" name="training_times_last_year" value="3" min="0" max="6">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Relationship Satisfaction (1-4)</label>
+                    <input type="number" class="form-control" name="relationship_satisfaction" value="3" min="1" max="4">
+                </div>
+            </div>
+
+            <!-- Row 7: Education -->
+            <div class="row g-3 mb-4">
+                <div class="col-md-3">
+                    <label class="form-label">Education Level (1-5)</label>
+                    <input type="number" class="form-control" name="education" value="3" min="1" max="5">
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Education Field</label>
+                    <select class="form-select" name="education_field">
+                        {% for v in categories['EducationField'] %}
+                        <option value="{{ v }}" {% if v == 'Life Sciences' %}selected{% endif %}>{{ v }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Business Travel</label>
+                    <select class="form-select" name="business_travel">
+                        {% for v in categories['BusinessTravel'] %}
+                        <option value="{{ v }}" {% if v == 'Travel_Rarely' %}selected{% endif %}>{{ v }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">Daily Rate</label>
+                    <input type="number" class="form-control" name="daily_rate" value="800" min="100" max="1500">
+                </div>
+            </div>
+
+            <button type="button" id="analyse-btn" class="btn btn-primary btn-lg px-4">
+                <i class="bi bi-search me-2"></i>Analyse This Employee
+            </button>
+        </form>
+    </div>
+</div>
+
+<!-- Loading Spinner (hidden by default) -->
+<div id="loading-section" class="text-center py-5" style="display:none!important;">
+    <div class="spinner-border text-primary mb-3" style="width:3rem;height:3rem;"></div>
+    <p class="text-muted" id="loading-msg">Computing prediction and generating explanation...</p>
+</div>
+
+<!-- Results Section (hidden by default) -->
+<div id="results-section" style="display:none;">
+
+    <!-- Risk Score Card -->
+    <div class="card mb-4">
+        <div class="card-body text-center">
+            <p class="text-muted mb-1" style="font-size:0.9rem;">Predicted Attrition Risk</p>
+            <div id="risk-score-display" class="risk-score-display">--</div>
+            <div id="risk-badge" class="risk-badge mt-2"></div>
+            <p class="text-muted mt-2" style="font-size:0.85rem;">
+                Model: <strong id="model-used"></strong>
+            </p>
+        </div>
+    </div>
+
+    <!-- SHAP Waterfall Chart -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="section-title">What Drove This Prediction?</h5>
+            <p style="font-size:0.85rem; color:#6b7280;">
+                Red bars increase risk. Green bars decrease risk. Starting from the average prediction,
+                each factor shows how much it shifted this employee's specific score.
+            </p>
+            <div id="waterfall-chart"></div>
+        </div>
+    </div>
+
+    <!-- Groq Explanation -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="section-title">
+                <i class="bi bi-robot me-2"></i>AI-Generated Explanation
+            </h5>
+            <div id="groq-explanation" class="explanation-card"></div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Error display -->
+<div id="error-section" class="alert alert-danger" style="display:none;"></div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.getElementById('analyse-btn').addEventListener('click', async function () {
+    // Validate
+    const form = document.getElementById('analyser-form');
+    const modelName = document.querySelector('input[name="model_selector"]:checked').value;
+
+    // Show loading, hide results
+    document.getElementById('results-section').style.display = 'none';
+    document.getElementById('error-section').style.display = 'none';
+    document.getElementById('loading-section').style.removeProperty('display');
+
+    if (modelName === 'Neural Network') {
+        document.getElementById('loading-msg').textContent =
+            'Computing Neural Network prediction + SHAP values... this takes ~60 seconds. Please wait.';
+    } else {
+        document.getElementById('loading-msg').textContent =
+            'Computing prediction and generating explanation...';
+    }
+
+    // Build form data
+    const formData = new FormData(form);
+    formData.append('model_name', modelName);
+
+    try {
+        const response = await fetch('/analyse', {method: 'POST', body: formData});
+        const data = await response.json();
+
+        document.getElementById('loading-section').style.display = 'none';
+
+        if (!data.success) {
+            document.getElementById('error-section').textContent =
+                'Error: ' + data.error;
+            document.getElementById('error-section').style.display = 'block';
+            return;
+        }
+
+        // Risk score
+        const score = data.risk_score;
+        const scoreEl = document.getElementById('risk-score-display');
+        scoreEl.textContent = score + '%';
+        scoreEl.className = 'risk-score-display risk-' + data.risk_level;
+
+        const badgeEl = document.getElementById('risk-badge');
+        const badgeLabels = {low: '🟢 Low Risk', medium: '🟡 Medium Risk', high: '🔴 High Risk'};
+        badgeEl.textContent = badgeLabels[data.risk_level];
+        badgeEl.className = 'risk-badge badge-' + data.risk_level;
+
+        document.getElementById('model-used').textContent = data.model_name;
+
+        // Waterfall chart
+        const chartData = JSON.parse(data.chart);
+        Plotly.newPlot('waterfall-chart', chartData.data, chartData.layout, {responsive: true});
+
+        // Groq explanation
+        document.getElementById('groq-explanation').textContent = data.explanation;
+
+        // Show results
+        document.getElementById('results-section').style.display = 'block';
+        document.getElementById('results-section').scrollIntoView({behavior: 'smooth'});
+
+    } catch (err) {
+        document.getElementById('loading-section').style.display = 'none';
+        document.getElementById('error-section').textContent =
+            'Request failed: ' + err.message;
+        document.getElementById('error-section').style.display = 'block';
+    }
+});
+</script>
+{% endblock %}

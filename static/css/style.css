@@ -1,0 +1,228 @@
+/* ── Base ──────────────────────────────────────────────────────────────────── */
+* { box-sizing: border-box; }
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #f9fafb;
+    color: #111827;
+    margin: 0;
+}
+
+/* ── Sidebar ─────────────────────────────────────────────────────────────── */
+.sidebar {
+    position: fixed;
+    top: 0; left: 0;
+    width: 240px;
+    height: 100vh;
+    background: #111827;
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem 1rem;
+    z-index: 100;
+    overflow-y: auto;
+}
+
+.sidebar-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #374151;
+    margin-bottom: 1.5rem;
+}
+
+.brand-icon { font-size: 1.75rem; }
+.brand-title { color: #f9fafb; font-weight: 700; font-size: 1rem; line-height: 1.2; }
+.brand-sub   { color: #9ca3af; font-size: 0.7rem; }
+
+.sidebar-nav { flex: 1; }
+
+.sidebar-nav .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: #9ca3af;
+    padding: 0.6rem 0.75rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    text-decoration: none;
+    margin-bottom: 0.25rem;
+    transition: all 0.15s;
+}
+
+.sidebar-nav .nav-link:hover {
+    color: #f9fafb;
+    background: #1f2937;
+}
+
+.sidebar-nav .nav-link.active {
+    color: #f9fafb;
+    background: #3b82f6;
+}
+
+.sidebar-footer {
+    padding-top: 1rem;
+    border-top: 1px solid #374151;
+    color: #9ca3af;
+    font-size: 0.78rem;
+}
+
+.badge-reg {
+    display: inline-block;
+    background: #1f2937;
+    color: #60a5fa;
+    border: 1px solid #374151;
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-size: 0.7rem;
+    margin-right: 4px;
+    margin-bottom: 4px;
+}
+
+/* ── Main Content ─────────────────────────────────────────────────────────── */
+.main-content {
+    margin-left: 240px;
+    padding: 2rem;
+    min-height: 100vh;
+}
+
+/* ── Page Header ─────────────────────────────────────────────────────────── */
+.page-header { margin-bottom: 1.75rem; }
+.page-title  { font-size: 1.5rem; font-weight: 700; color: #111827; margin-bottom: 0.4rem; }
+.page-subtitle { font-size: 0.9rem; color: #6b7280; max-width: 680px; line-height: 1.6; }
+
+/* ── Cards ────────────────────────────────────────────────────────────────── */
+.card {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.75rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,.05);
+}
+
+.card-body { padding: 1.5rem; }
+
+.card-model-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 0.5rem;
+}
+
+.section-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 0.75rem;
+}
+
+/* ── Metric Rows ──────────────────────────────────────────────────────────── */
+.metric-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.3rem 0;
+    border-bottom: 1px solid #f3f4f6;
+    font-size: 0.875rem;
+}
+.metric-label { color: #6b7280; }
+.metric-value { font-weight: 600; color: #111827; }
+
+/* ── Explainability Badges ────────────────────────────────────────────────── */
+.badge-green {
+    background: #d1fae5; color: #065f46;
+    border-radius: 9999px; padding: 2px 10px;
+    font-size: 0.75rem; font-weight: 600;
+}
+.badge-amber {
+    background: #fef3c7; color: #92400e;
+    border-radius: 9999px; padding: 2px 10px;
+    font-size: 0.75rem; font-weight: 600;
+}
+.badge-red {
+    background: #fee2e2; color: #991b1b;
+    border-radius: 9999px; padding: 2px 10px;
+    font-size: 0.75rem; font-weight: 600;
+}
+
+/* ── Risk Score Display ──────────────────────────────────────────────────── */
+.risk-score-display {
+    font-size: 3.5rem;
+    font-weight: 800;
+    line-height: 1;
+    margin: 0.5rem 0;
+}
+.risk-score-display.risk-low    { color: #16a34a; }
+.risk-score-display.risk-medium { color: #d97706; }
+.risk-score-display.risk-high   { color: #dc2626; }
+
+.risk-badge {
+    display: inline-block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 4px 14px;
+    border-radius: 9999px;
+}
+.risk-badge.badge-low    { background: #d1fae5; color: #065f46; }
+.risk-badge.badge-medium { background: #fef3c7; color: #92400e; }
+.risk-badge.badge-high   { background: #fee2e2; color: #991b1b; }
+
+/* ── Explanation Card ─────────────────────────────────────────────────────── */
+.explanation-card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.5rem;
+    padding: 1.25rem;
+    font-size: 0.9rem;
+    line-height: 1.75;
+    color: #374151;
+    white-space: pre-wrap;
+}
+
+/* ── Assessment Document ─────────────────────────────────────────────────── */
+.assessment-doc {
+    background: #fafafa;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    font-size: 0.875rem;
+    line-height: 1.8;
+    color: #1f2937;
+    white-space: pre-wrap;
+    font-family: 'Georgia', serif;
+}
+
+/* ── Audit Table ──────────────────────────────────────────────────────────── */
+.audit-table { font-size: 0.82rem; }
+.audit-table thead th {
+    background: #f9fafb;
+    font-weight: 600;
+    color: #374151;
+    border-bottom: 2px solid #e5e7eb;
+    white-space: nowrap;
+}
+.audit-table tbody tr:hover { background: #f0f9ff; }
+
+/* ── Form Polish ──────────────────────────────────────────────────────────── */
+.form-label { font-size: 0.82rem; font-weight: 500; color: #374151; margin-bottom: 4px; }
+.form-control, .form-select {
+    font-size: 0.875rem;
+    border-color: #d1d5db;
+    border-radius: 0.5rem;
+}
+.form-control:focus, .form-select:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59,130,246,.15);
+}
+
+.btn-primary {
+    background: #3b82f6;
+    border-color: #3b82f6;
+    border-radius: 0.5rem;
+    font-weight: 600;
+}
+.btn-primary:hover { background: #2563eb; border-color: #2563eb; }
+
+/* ── Responsive ──────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+    .sidebar { width: 100%; height: auto; position: relative; }
+    .main-content { margin-left: 0; padding: 1rem; }
+}

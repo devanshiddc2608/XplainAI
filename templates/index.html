@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- Hero -->
+<div class="page-header">
+    <h1 class="page-title">Model Explainability Gap Audit</h1>
+    <p class="page-subtitle">
+        A systematic comparison of three ML models on the accuracy-versus-explainability trade-off,
+        framed against RBI's FREE-AI governance framework and EU AI Act high-risk system requirements.
+    </p>
+</div>
+
+<!-- Model Cards -->
+<div class="row g-3 mb-4">
+    {% for row in comparison %}
+    {% set badge_class = 'badge-green' if row['Explainability Quality (1-5)'] >= 4
+                    else ('badge-amber' if row['Explainability Quality (1-5)'] == 3
+                    else 'badge-red') %}
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-model-title">{{ row['Model'] }}</h5>
+                <span class="{{ badge_class }} mb-3 d-inline-block">
+                    Explainability {{ row['Explainability Quality (1-5)'] }}/5
+                </span>
+                <div class="metric-row">
+                    <span class="metric-label">Accuracy</span>
+                    <span class="metric-value">{{ "%.1f"|format(row['Accuracy']*100) }}%</span>
+                </div>
+                <div class="metric-row">
+                    <span class="metric-label">ROC-AUC</span>
+                    <span class="metric-value">{{ row['ROC-AUC'] }}</span>
+                </div>
+                <div class="metric-row">
+                    <span class="metric-label">F1 Score</span>
+                    <span class="metric-value">{{ row['F1'] }}</span>
+                </div>
+                <div class="metric-row">
+                    <span class="metric-label">Recall</span>
+                    <span class="metric-value">{{ row['Recall'] }}</span>
+                </div>
+                <hr style="border-color:#f3f4f6;">
+                <div style="font-size:0.8rem; color:#6b7280;">
+                    <strong>Method:</strong> {{ row['Explainability Method'] }}<br>
+                    <strong>Regulatory:</strong> {{ row['Regulatory Suitability'] }}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- ROC Curve -->
+<div class="card mb-4">
+    <div class="card-body">
+        <h5 class="section-title">ROC Curves — All Three Models</h5>
+        <p style="font-size:0.85rem; color:#6b7280;">
+            Higher AUC indicates better ability to separate at-risk from stable employees across all thresholds.
+        </p>
+        <div id="roc-chart"></div>
+    </div>
+</div>
+
+<!-- Comparison Table -->
+<div class="card mb-4">
+    <div class="card-body">
+        <h5 class="section-title">Full Audit Comparison</h5>
+        <div class="table-responsive">
+            <table class="table table-hover audit-table">
+                <thead>
+                    <tr>
+                        <th>Model</th>
+                        <th>Accuracy</th>
+                        <th>Precision</th>
+                        <th>Recall</th>
+                        <th>F1</th>
+                        <th>ROC-AUC</th>
+                        <th>Explainability Method</th>
+                        <th>Quality</th>
+                        <th>Regulatory Fit</th>
+                        <th>Compute Cost</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in comparison %}
+                    <tr>
+                        <td><strong>{{ row['Model'] }}</strong></td>
+                        <td>{{ row['Accuracy'] }}</td>
+                        <td>{{ row['Precision'] }}</td>
+                        <td>{{ row['Recall'] }}</td>
+                        <td>{{ row['F1'] }}</td>
+                        <td>{{ row['ROC-AUC'] }}</td>
+                        <td>{{ row['Explainability Method'] }}</td>
+                        <td>
+                            {% set q = row['Explainability Quality (1-5)'] %}
+                            {% if q >= 4 %}<span class="badge-green">{{ q }}/5</span>
+                            {% elif q == 3 %}<span class="badge-amber">{{ q }}/5</span>
+                            {% else %}<span class="badge-red">{{ q }}/5</span>{% endif %}
+                        </td>
+                        <td style="font-size:0.8rem;">{{ row['Regulatory Suitability'] }}</td>
+                        <td>{{ row['Computational Cost'] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Audit Conclusion -->
+<div class="card mb-4" style="border-left: 4px solid #3b82f6;">
+    <div class="card-body">
+        <h5 class="section-title">Audit Conclusion</h5>
+        <p style="font-size:0.9rem; color:#374151; line-height:1.7;">
+            <strong>Recommended deployment:</strong> Logistic Regression for contexts requiring full regulatory
+            auditability (RBI FREE-AI "Understandable by Design"). Its coefficients constitute the explanation
+            itself — no approximation risk. The Neural Network achieves marginally higher ROC-AUC but at the
+            cost of SHAP stability (0.0023 vs 0.0000 for RF), making its explanations less reproducible under
+            small input perturbations — a meaningful risk in employment decision contexts explicitly classified
+            as high-risk under the EU AI Act.
+        </p>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    const rocData = {{ roc_chart|safe }};
+    Plotly.newPlot('roc-chart', rocData.data, rocData.layout, {responsive: true});
+</script>
+{% endblock %}
