@@ -1,0 +1,133 @@
+Model,Feature,Importance,Direction
+Logistic Regression,Age,0.2956,Decreases Risk
+Logistic Regression,DailyRate,0.2185,Decreases Risk
+Logistic Regression,DistanceFromHome,0.298,Increases Risk
+Logistic Regression,Education,0.1167,Decreases Risk
+Logistic Regression,EnvironmentSatisfaction,0.5946,Decreases Risk
+Logistic Regression,HourlyRate,0.0065,Increases Risk
+Logistic Regression,JobInvolvement,0.5413,Decreases Risk
+Logistic Regression,JobLevel,0.5082,Decreases Risk
+Logistic Regression,JobSatisfaction,0.5074,Decreases Risk
+Logistic Regression,MonthlyIncome,0.419,Increases Risk
+Logistic Regression,MonthlyRate,0.0258,Decreases Risk
+Logistic Regression,NumCompaniesWorked,0.3844,Increases Risk
+Logistic Regression,PercentSalaryHike,0.017,Increases Risk
+Logistic Regression,PerformanceRating,0.1658,Decreases Risk
+Logistic Regression,RelationshipSatisfaction,0.3071,Decreases Risk
+Logistic Regression,StockOptionLevel,0.6339,Decreases Risk
+Logistic Regression,TotalWorkingYears,0.6027,Decreases Risk
+Logistic Regression,TrainingTimesLastYear,0.2654,Decreases Risk
+Logistic Regression,WorkLifeBalance,0.3956,Decreases Risk
+Logistic Regression,YearsAtCompany,0.1882,Increases Risk
+Logistic Regression,YearsInCurrentRole,0.2398,Decreases Risk
+Logistic Regression,YearsSinceLastPromotion,0.4469,Increases Risk
+Logistic Regression,YearsWithCurrManager,0.3993,Decreases Risk
+Logistic Regression,BusinessTravel_Travel_Frequently,0.204,Increases Risk
+Logistic Regression,BusinessTravel_Travel_Rarely,0.109,Decreases Risk
+Logistic Regression,Department_Research & Development,1.6649,Decreases Risk
+Logistic Regression,Department_Sales,0.842,Decreases Risk
+Logistic Regression,EducationField_Life Sciences,1.4857,Decreases Risk
+Logistic Regression,EducationField_Marketing,0.8736,Decreases Risk
+Logistic Regression,EducationField_Medical,1.4672,Decreases Risk
+Logistic Regression,EducationField_Other,0.818,Decreases Risk
+Logistic Regression,EducationField_Technical Degree,0.7035,Decreases Risk
+Logistic Regression,Gender_Male,0.0089,Increases Risk
+Logistic Regression,JobRole_Human Resources,0.788,Decreases Risk
+Logistic Regression,JobRole_Laboratory Technician,0.1028,Increases Risk
+Logistic Regression,JobRole_Manager,0.3356,Decreases Risk
+Logistic Regression,JobRole_Manufacturing Director,0.286,Decreases Risk
+Logistic Regression,JobRole_Research Director,0.4281,Decreases Risk
+Logistic Regression,JobRole_Research Scientist,0.424,Decreases Risk
+Logistic Regression,JobRole_Sales Executive,0.4398,Decreases Risk
+Logistic Regression,JobRole_Sales Representative,0.1455,Decreases Risk
+Logistic Regression,MaritalStatus_Married,0.5002,Decreases Risk
+Logistic Regression,MaritalStatus_Single,0.3218,Decreases Risk
+Logistic Regression,OverTime_Yes,0.6594,Increases Risk
+Random Forest,Age,0.0222,Decreases Risk
+Random Forest,DailyRate,0.0084,Decreases Risk
+Random Forest,DistanceFromHome,0.0122,Decreases Risk
+Random Forest,Education,0.015,Decreases Risk
+Random Forest,EnvironmentSatisfaction,0.0349,Decreases Risk
+Random Forest,HourlyRate,0.0049,Decreases Risk
+Random Forest,JobInvolvement,0.0338,Decreases Risk
+Random Forest,JobLevel,0.0357,Decreases Risk
+Random Forest,JobSatisfaction,0.0395,Decreases Risk
+Random Forest,MonthlyIncome,0.024,Decreases Risk
+Random Forest,MonthlyRate,0.0059,Decreases Risk
+Random Forest,NumCompaniesWorked,0.0068,Decreases Risk
+Random Forest,PercentSalaryHike,0.0027,Decreases Risk
+Random Forest,PerformanceRating,0.0016,Decreases Risk
+Random Forest,RelationshipSatisfaction,0.0121,Decreases Risk
+Random Forest,StockOptionLevel,0.0735,Decreases Risk
+Random Forest,TotalWorkingYears,0.0114,Decreases Risk
+Random Forest,TrainingTimesLastYear,0.0091,Decreases Risk
+Random Forest,WorkLifeBalance,0.0237,Decreases Risk
+Random Forest,YearsAtCompany,0.016,Decreases Risk
+Random Forest,YearsInCurrentRole,0.0166,Decreases Risk
+Random Forest,YearsSinceLastPromotion,0.004,Decreases Risk
+Random Forest,YearsWithCurrManager,0.0294,Decreases Risk
+Random Forest,BusinessTravel_Travel_Frequently,0.0005,Decreases Risk
+Random Forest,BusinessTravel_Travel_Rarely,0.0141,Decreases Risk
+Random Forest,Department_Research & Development,0.0476,Decreases Risk
+Random Forest,Department_Sales,0.0076,Increases Risk
+Random Forest,EducationField_Life Sciences,0.014,Decreases Risk
+Random Forest,EducationField_Marketing,0.0019,Decreases Risk
+Random Forest,EducationField_Medical,0.0258,Decreases Risk
+Random Forest,EducationField_Other,0.0009,Decreases Risk
+Random Forest,EducationField_Technical Degree,0.001,Decreases Risk
+Random Forest,Gender_Male,0.0058,Decreases Risk
+Random Forest,JobRole_Human Resources,0.0008,Decreases Risk
+Random Forest,JobRole_Laboratory Technician,0.0008,Decreases Risk
+Random Forest,JobRole_Manager,0.0009,Decreases Risk
+Random Forest,JobRole_Manufacturing Director,0.0034,Decreases Risk
+Random Forest,JobRole_Research Director,0.0008,Decreases Risk
+Random Forest,JobRole_Research Scientist,0.0171,Decreases Risk
+Random Forest,JobRole_Sales Executive,0.0035,Increases Risk
+Random Forest,JobRole_Sales Representative,0.0006,Decreases Risk
+Random Forest,MaritalStatus_Married,0.0509,Decreases Risk
+Random Forest,MaritalStatus_Single,0.0112,Decreases Risk
+Random Forest,OverTime_Yes,0.0054,Decreases Risk
+Neural Network,Age,0.0095,Decreases Risk
+Neural Network,DailyRate,0.0084,Increases Risk
+Neural Network,DistanceFromHome,0.0033,Increases Risk
+Neural Network,Education,0.0023,Increases Risk
+Neural Network,EnvironmentSatisfaction,0.0272,Decreases Risk
+Neural Network,HourlyRate,0.0014,Decreases Risk
+Neural Network,JobInvolvement,0.0188,Increases Risk
+Neural Network,JobLevel,0.004,Decreases Risk
+Neural Network,JobSatisfaction,0.0351,Decreases Risk
+Neural Network,MonthlyIncome,0.0,Decreases Risk
+Neural Network,MonthlyRate,0.0,Decreases Risk
+Neural Network,NumCompaniesWorked,0.0104,Increases Risk
+Neural Network,PercentSalaryHike,0.0002,Increases Risk
+Neural Network,PerformanceRating,0.0,Decreases Risk
+Neural Network,RelationshipSatisfaction,0.0134,Decreases Risk
+Neural Network,StockOptionLevel,0.047,Decreases Risk
+Neural Network,TotalWorkingYears,0.0139,Increases Risk
+Neural Network,TrainingTimesLastYear,0.0108,Decreases Risk
+Neural Network,WorkLifeBalance,0.0039,Increases Risk
+Neural Network,YearsAtCompany,0.0,Decreases Risk
+Neural Network,YearsInCurrentRole,0.0052,Decreases Risk
+Neural Network,YearsSinceLastPromotion,0.0139,Increases Risk
+Neural Network,YearsWithCurrManager,0.0077,Decreases Risk
+Neural Network,BusinessTravel_Travel_Frequently,0.0029,Increases Risk
+Neural Network,BusinessTravel_Travel_Rarely,0.0,Decreases Risk
+Neural Network,Department_Research & Development,0.0484,Increases Risk
+Neural Network,Department_Sales,0.0103,Decreases Risk
+Neural Network,EducationField_Life Sciences,0.0875,Increases Risk
+Neural Network,EducationField_Marketing,0.0119,Decreases Risk
+Neural Network,EducationField_Medical,0.0819,Decreases Risk
+Neural Network,EducationField_Other,0.0022,Decreases Risk
+Neural Network,EducationField_Technical Degree,0.0076,Decreases Risk
+Neural Network,Gender_Male,0.0,Decreases Risk
+Neural Network,JobRole_Human Resources,0.0,Decreases Risk
+Neural Network,JobRole_Laboratory Technician,0.0,Decreases Risk
+Neural Network,JobRole_Manager,0.007,Decreases Risk
+Neural Network,JobRole_Manufacturing Director,0.0109,Decreases Risk
+Neural Network,JobRole_Research Director,0.0062,Decreases Risk
+Neural Network,JobRole_Research Scientist,0.0192,Decreases Risk
+Neural Network,JobRole_Sales Executive,0.0085,Decreases Risk
+Neural Network,JobRole_Sales Representative,0.0,Decreases Risk
+Neural Network,MaritalStatus_Married,0.0189,Decreases Risk
+Neural Network,MaritalStatus_Single,0.0012,Increases Risk
+Neural Network,OverTime_Yes,0.0689,Increases Risk

@@ -1,0 +1,19 @@
+Model,Dimension,Score
+Logistic Regression,Transparency,5
+Logistic Regression,Auditability,5
+Logistic Regression,Explainability,5
+Logistic Regression,Human Override Ready,5
+Logistic Regression,Maintenance Simplicity,5
+Logistic Regression,Bias Detectability,4
+Random Forest,Transparency,3
+Random Forest,Auditability,4
+Random Forest,Explainability,4
+Random Forest,Human Override Ready,4
+Random Forest,Maintenance Simplicity,3
+Random Forest,Bias Detectability,3
+Neural Network,Transparency,1
+Neural Network,Auditability,2
+Neural Network,Explainability,2
+Neural Network,Human Override Ready,3
+Neural Network,Maintenance Simplicity,1
+Neural Network,Bias Detectability,2

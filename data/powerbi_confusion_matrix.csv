@@ -1,0 +1,13 @@
+Model,Category,Actual,Predicted,Count,Is_Correct
+Logistic Regression,True Negative,No Attrition,No Attrition,232,Correct
+Logistic Regression,False Positive,No Attrition,Attrition,15,Incorrect
+Logistic Regression,False Negative,Attrition,No Attrition,27,Incorrect
+Logistic Regression,True Positive,Attrition,Attrition,20,Correct
+Random Forest,True Negative,No Attrition,No Attrition,222,Correct
+Random Forest,False Positive,No Attrition,Attrition,25,Incorrect
+Random Forest,False Negative,Attrition,No Attrition,32,Incorrect
+Random Forest,True Positive,Attrition,Attrition,15,Correct
+Neural Network,True Negative,No Attrition,No Attrition,232,Correct
+Neural Network,False Positive,No Attrition,Attrition,15,Incorrect
+Neural Network,False Negative,Attrition,No Attrition,27,Incorrect
+Neural Network,True Positive,Attrition,Attrition,20,Correct

@@ -1,0 +1,4 @@
+Model,Accuracy,Precision,Recall,F1,ROC_AUC,Explainability_Score,Explainability_Method,Regulatory_Suitability,Computational_Cost
+Logistic Regression,0.857,0.571,0.426,0.488,0.721,5,Native Coefficients,High,Very Low
+Random Forest,0.806,0.375,0.319,0.345,0.731,4,SHAP TreeExplainer,Medium,Low-Medium
+Neural Network,0.857,0.571,0.426,0.488,0.739,2,SHAP KernelExplainer,Low,High
