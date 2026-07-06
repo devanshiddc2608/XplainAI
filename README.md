@@ -62,14 +62,6 @@ transparency requirements.
 
 ---
 
-## Sample Output
-
-**Employee Risk Analysis (Random Forest)**
-
-![SHAP Waterfall](assets/dashboard_screenshot.png)
-
----
-
 ## Technical Stack
 
 ![Python](https://img.shields.io/badge/Python-3.11-blue)
