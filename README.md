@@ -106,7 +106,7 @@ transparency requirements.
 ## Running Locally
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/xplainai-explainability-audit.git
+git clone https://github.com/devanshiddc2608/XplainAI
 cd xplainai-explainability-audit
 python -m venv venv
 venv\Scripts\activate        # Windows
