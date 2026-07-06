@@ -1,9 +1,7 @@
 # XplainAI — Model Explainability Gap Audit
 
-> **Live App:** [xplainai-audit.onrender.com](https://xplainai-audit.onrender.com)  
+> **Live App:** [xplainai-audit.onrender.com](https://xplainai-y1zg.onrender.com)
 > *(Free tier — allow 30s on first load if cold-starting)*
-
-![XplainAI Demo](assets/demo.gif)
 
 ---
 
@@ -27,7 +25,7 @@ Risk Management team would produce before deploying AI in a regulated context.
 
 ## Live Application
 
-**[Open XplainAI →](https://xplainai-audit.onrender.com)**
+**[Open XplainAI →](https://xplainai-y1zg.onrender.com)**
 
 | Page | What It Does |
 |------|-------------|
@@ -145,5 +143,5 @@ This project references:
 
 ---
 
-*Built by Devanshi — [LinkedIn](https://linkedin.com/in/YOUR_HANDLE) · 
+*Built by Devanshi — [LinkedIn](https://www.linkedin.com/in/devanshi-chauhan-879031230/) · 
 [Portfolio](YOUR_PORTFOLIO_URL)*
